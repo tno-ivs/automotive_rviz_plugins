@@ -48,9 +48,6 @@ void LineVisual::setLineParameters(double c2, double c3, double x_start, double 
 {
     line_->clear();
 
-    double c0 = 0;
-    double c1 = 1;
-
     // Width
     line_->setLineWidth(width);
     color_ = color;
@@ -59,7 +56,7 @@ void LineVisual::setLineParameters(double c2, double c3, double x_start, double 
     for (unsigned int i = 0; i < 100; ++i)
     {
         double x = x_start + i * dx;
-        double y = c3 * x * x * x + c2 * x * x + c1 * x + c0;
+        double y = c3 * x * x * x + c2 * x * x;
 
         line_->addPoint(Ogre::Vector3(x, y, 0));
     }

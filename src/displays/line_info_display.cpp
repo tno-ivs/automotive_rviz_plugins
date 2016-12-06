@@ -30,7 +30,7 @@ void LineInfoDisplay::onInitialize() {
     color_roadedge = new rviz::ColorProperty("Color - Road edge", QColor(0, 136, 0), "", this);
     color_invalid = new rviz::ColorProperty("Color - Invalid", QColor(0, 0, 0), "", this);
 
-    width_property_ = new rviz::FloatProperty("Lane Width", 0.3, "", this);
+    width_property_ = new rviz::FloatProperty("Line Width", 0.3, "", this);
     dx_property_ = new rviz::FloatProperty("dx", 0.1, "", this);
     x_start_property_ = new rviz::FloatProperty("x_start", 0, "", this);
 
@@ -97,10 +97,10 @@ void LineInfoDisplay::getLineFromSegment(Line& lineInstance, const Ogre::Quatern
 
     double opacity = (segment.confidence >= 0.5) ? 1.0 : 0.1;
     lineInstance.visual.setFramePosition(frame_position + line_position);
-    lineInstance.visual.setFrameOrientation(frame_orientation + line_orientation);
+    lineInstance.visual.setFrameOrientation(frame_orientation * line_orientation);
     lineInstance.visual.setLineParameters(
-                -segment.c2,
-                -segment.c3,
+                segment.c2,
+                segment.c3,
                 x_start_property_->getFloat(),
                 dx_property_->getFloat(),
                 lineInstance.width_property_->getFloat(),
