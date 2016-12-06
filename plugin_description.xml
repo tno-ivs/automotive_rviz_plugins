@@ -1,0 +1,6 @@
+<library path="lib/librviz_plugins">
+    <class name="rviz_plugins/Lines" type="rviz_plugins::LineInfoDisplay" base_class_type="rviz::Display">
+        <description>Line info visualization</description>
+        <message_type>automotive_sensor_msgs/Lines</message_type>
+    </class>
+</library>

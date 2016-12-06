@@ -1,0 +1,21 @@
+<package>
+  <name>rviz_plugins</name>
+  <version>1.0.0</version>
+  <description>
+      Rviz plugins
+  </description>
+  <maintainer email="rein.appeldoorn@tno.nl">Rein Appeldoorn</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rviz</build_depend>
+  <run_depend>rviz</run_depend>
+
+  <build_depend>automotive_sensor_msgs</build_depend>
+  <run_depend>automotive_sensor_msgs</run_depend>
+
+  <export>
+      <rviz plugin="${prefix}/plugin_description.xml"/>
+  </export>
+</package>
