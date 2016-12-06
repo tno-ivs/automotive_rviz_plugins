@@ -55,13 +55,20 @@ private:
     bool initialized_;
     std::vector<Line> lines_;
     rviz::ColorProperty* color_dashed;
+    rviz::ColorProperty* color_solid;
+    rviz::ColorProperty* color_undecided;
+    rviz::ColorProperty* color_roadedge;
+    rviz::ColorProperty* color_invalid;
+
 
     rviz::FloatProperty* width_property_;
     rviz::FloatProperty* dx_property_;
     rviz::FloatProperty* x_start_property_;
 
-    Line getLineFromSegment(const Ogre::Quaternion &frame_orientation, const Ogre::Vector3 &frame_position,
+    void getLineFromSegment(Line& line, const Ogre::Quaternion &frame_orientation, const Ogre::Vector3 &frame_position,
                             const automotive_sensor_msgs::LineSegment_<std::allocator<void>> &segment);
+
+    void ensureCapacity(unsigned int size);
 };
 
 } // end namespace tno_rviz_plugins

@@ -24,7 +24,11 @@ LineInfoDisplay::LineInfoDisplay() {
 }
 
 void LineInfoDisplay::onInitialize() {
-    color_dashed = new rviz::ColorProperty("Color - Dashed", QColor(255, 0, 0), "", this);
+    color_dashed = new rviz::ColorProperty("Color - Dashed", QColor(255, 255, 0), "", this);
+    color_solid = new rviz::ColorProperty("Color - Solid", QColor(255, 0, 0), "", this);
+    color_undecided = new rviz::ColorProperty("Color - Undecided", QColor(255, 0, 255), "", this);
+    color_roadedge = new rviz::ColorProperty("Color - Road edge", QColor(0, 136, 0), "", this);
+    color_invalid = new rviz::ColorProperty("Color - Invalid", QColor(0, 0, 0), "", this);
 
     width_property_ = new rviz::FloatProperty("Lane Width", 0.3, "", this);
     dx_property_ = new rviz::FloatProperty("dx", 0.1, "", this);
@@ -35,8 +39,17 @@ void LineInfoDisplay::onInitialize() {
 }
 
 LineInfoDisplay::~LineInfoDisplay() {
+    for(auto& line : lines_) {
+        line.visual.destroy();
+    }
+
 
     delete color_dashed;
+    delete color_solid;
+    delete color_undecided;
+    delete color_roadedge;
+    delete color_invalid;
+
     delete width_property_;
     delete dx_property_;
     delete x_start_property_;
@@ -61,18 +74,20 @@ void LineInfoDisplay::processMessage(const automotive_sensor_msgs::LinesConstPtr
         return;
     }
 
-    lines_.clear();
+    ensureCapacity(msg->segments.size());
+    int count = 0;
     for (const auto &segment : msg->segments) {
-        lines_.push_back(getLineFromSegment(frame_orientation, frame_position, segment));
+        getLineFromSegment(lines_.at(count++),frame_orientation, frame_position, segment);
+    }
+    //Reset the old storage
+    for(auto i = count; i < lines_.size(); i++) {
+        lines_.at(i).visual.setOpacity(0);//invisible
     }
 }
 
-Line LineInfoDisplay::getLineFromSegment(const Ogre::Quaternion &frame_orientation, const Ogre::Vector3 &frame_position,
+void LineInfoDisplay::getLineFromSegment(Line& lineInstance, const Ogre::Quaternion &frame_orientation, const Ogre::Vector3 &frame_position,
                                          const automotive_sensor_msgs::LineSegment_<std::allocator<void>> &segment) {
-    auto lineInstance = Line();
 
-    // Modify
-    lineInstance.visual.initialize(scene_manager_, scene_node_);
     lineInstance.width_property_ = width_property_;
     lineInstance.color_property_ = colorFromLineType(segment.type);
 
@@ -80,7 +95,7 @@ Line LineInfoDisplay::getLineFromSegment(const Ogre::Quaternion &frame_orientati
     Ogre::Quaternion line_orientation(segment.pose.orientation.w, segment.pose.orientation.x,
                                       segment.pose.orientation.y, segment.pose.orientation.z);
 
-    double opacity = (segment.confidence > 1) ? 1.0 : 0.1;
+    double opacity = (segment.confidence >= 0.5) ? 1.0 : 0.1;
     lineInstance.visual.setFramePosition(frame_position + line_position);
     lineInstance.visual.setFrameOrientation(frame_orientation + line_orientation);
     lineInstance.visual.setLineParameters(
@@ -91,11 +106,27 @@ Line LineInfoDisplay::getLineFromSegment(const Ogre::Quaternion &frame_orientati
                 lineInstance.width_property_->getFloat(),
                 lineInstance.color_property_->getOgreColor(),
                 opacity);
-    return lineInstance;
 }
 
-rviz::ColorProperty *LineInfoDisplay::colorFromLineType(int type) {
-    return color_dashed;
+rviz::ColorProperty* LineInfoDisplay::colorFromLineType(int type) {
+    switch(type){
+        case automotive_sensor_msgs::LineSegment::TYPE_DASHED:
+            return color_dashed;
+        case automotive_sensor_msgs::LineSegment::TYPE_SOLID:
+            return color_solid;
+        case automotive_sensor_msgs::LineSegment::TYPE_UNDECIDED:
+            return color_undecided;
+        case automotive_sensor_msgs::LineSegment::TYPE_ROAD_EDGE:
+            return color_roadedge;
+    }
+    return color_invalid;
+}
+
+void LineInfoDisplay::ensureCapacity(unsigned int size) {
+    for(unsigned int i = lines_.size(); i<size; i++) {
+        lines_.push_back(Line());
+        lines_.at(lines_.size()-1).visual.initialize(scene_manager_, scene_node_);
+    }
 }
 
 }

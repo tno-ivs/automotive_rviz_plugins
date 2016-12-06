@@ -16,13 +16,15 @@ public:
     LineVisual();
     ~LineVisual();
 
-
     void initialize(const LineVisual& other);
     void initialize(Ogre::SceneManager* scene_manager, Ogre::SceneNode* parent_node);
+
+    void destroy() const;
 
     void setFramePosition( const Ogre::Vector3& position );
     void setFrameOrientation( const Ogre::Quaternion& orientation );
     void setLineParameters(double c2, double c3, double x_start, double dx, double width, Ogre::ColourValue color, double opacity);
+    void setOpacity(double opacity);
 
 private:
     // The actual visual
@@ -33,6 +35,9 @@ private:
     Ogre::SceneNode* parent_node_;
 
     Ogre::SceneManager* scene_manager_;
+
+    Ogre::ColourValue color_;
+
 
 
 };

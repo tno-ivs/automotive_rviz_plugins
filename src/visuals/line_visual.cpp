@@ -23,10 +23,15 @@ void LineVisual::initialize(Ogre::SceneManager* scene_manager, Ogre::SceneNode* 
 
 LineVisual::~LineVisual()
 {
+    //This is called but not expected..
+    //destroy();
+}
+
+void LineVisual::destroy() const {
     if(line_ != nullptr)
-        delete line_;//SIGSEV
+        delete line_;
     if(frame_node_ != nullptr)
-        scene_manager_->destroySceneNode( frame_node_ );
+        scene_manager_->destroySceneNode(frame_node_);
 }
 
 void LineVisual::setFramePosition( const Ogre::Vector3& position )
@@ -48,6 +53,7 @@ void LineVisual::setLineParameters(double c2, double c3, double x_start, double 
 
     // Width
     line_->setLineWidth(width);
+    color_ = color;
     line_->setColor(color.r, color.g, color.b, opacity);
 
     for (unsigned int i = 0; i < 100; ++i)
@@ -61,6 +67,10 @@ void LineVisual::setLineParameters(double c2, double c3, double x_start, double 
 
 void LineVisual::initialize(const LineVisual &other) {
     initialize(other.scene_manager_, other.parent_node_);
+}
+
+void LineVisual::setOpacity(double opacity) {
+    line_->setColor(color_.r, color_.g, color_.b, opacity);
 }
 
 } // end namespace rviz_plugins

@@ -32,32 +32,32 @@ while not rospy.is_shutdown():
     msg.segments.append(segment)
 
     # Change c2
-#    segment = LineSegment()
-#    segment.pose.orientation = Quaternion(*quaternion_from_euler(0, 0, 2))
-#    segment.pose.position.x = 0
-#    segment.pose.position.y = 0
-#    segment.pose.position.z = 0
-#    segment.c2 = sin(0.01*(rospy.Time.now()-timeStart).to_sec())
-#    segment.c3 = 0.0
-#    segment.length = 20
-#    segment.width = 3.7
-#    segment.type = 1
-#    segment.confidence = 1
-#    msg.segments.append(segment)
+    segment = LineSegment()
+    segment.pose.orientation = Quaternion(*quaternion_from_euler(0, 0, 2))
+    segment.pose.position.x = 0
+    segment.pose.position.y = 0
+    segment.pose.position.z = 0
+    segment.c2 = sin(0.01*(rospy.Time.now()-timeStart).to_sec())
+    segment.c3 = 0.0
+    segment.length = 20
+    segment.width = 3.7
+    segment.type = 1
+    segment.confidence = 1
+    msg.segments.append(segment)
 
     # Change c2
-#    segment = LineSegment()
-#    segment.pose.orientation = Quaternion(*quaternion_from_euler(0, 0, 2))
-#    segment.pose.position.x = -20
-#    segment.pose.position.y = -20
-#    segment.pose.position.z = 0
-#    segment.c2 = 0.0
-#    segment.c3 = sin(0.001*(rospy.Time.now()-timeStart).to_sec())
-#    segment.length = 20
-#    segment.width = 3.7
-#    segment.type = 2
-#    segment.confidence = 1
-#    msg.segments.append(segment)
+    segment = LineSegment()
+    segment.pose.orientation = Quaternion(*quaternion_from_euler(0, 0, 2))
+    segment.pose.position.x = -20
+    segment.pose.position.y = -20
+    segment.pose.position.z = 0
+    segment.c2 = 0.0
+    segment.c3 = sin(0.001*(rospy.Time.now()-timeStart).to_sec())
+    segment.length = 20
+    segment.width = 3.7
+    segment.type = 2
+    segment.confidence = 1
+    msg.segments.append(segment)
 
     pub.publish(msg)
 
