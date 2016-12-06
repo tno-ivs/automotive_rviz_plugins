@@ -23,7 +23,7 @@ public:
 
     void setFramePosition( const Ogre::Vector3& position );
     void setFrameOrientation( const Ogre::Quaternion& orientation );
-    void setLineParameters(double c2, double c3, double x_start, double dx, double width, Ogre::ColourValue color, double opacity);
+    void setLineParameters(double c2, double c3, double x_start, double max_length, double width, Ogre::ColourValue color, double opacity, double stepsize);
     void setOpacity(double opacity);
 
 private:

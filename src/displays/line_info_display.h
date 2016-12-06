@@ -62,8 +62,8 @@ private:
 
 
     rviz::FloatProperty* width_property_;
-    rviz::FloatProperty* dx_property_;
-    rviz::FloatProperty* x_start_property_;
+    rviz::FloatProperty* stepsize_property_;
+    rviz::FloatProperty* max_length_property_;
 
     void getLineFromSegment(Line& line, const Ogre::Quaternion &frame_orientation, const Ogre::Vector3 &frame_position,
                             const automotive_sensor_msgs::LineSegment_<std::allocator<void>> &segment);

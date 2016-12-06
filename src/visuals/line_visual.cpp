@@ -44,7 +44,7 @@ void LineVisual::setFrameOrientation( const Ogre::Quaternion& orientation )
     frame_node_->setOrientation( orientation );
 }
 
-void LineVisual::setLineParameters(double c2, double c3, double x_start, double dx, double width, Ogre::ColourValue color, double opacity)
+void LineVisual::setLineParameters(double c2, double c3, double x_start, double max_length, double width, Ogre::ColourValue color, double opacity, double stepsize)
 {
     line_->clear();
 
@@ -53,9 +53,9 @@ void LineVisual::setLineParameters(double c2, double c3, double x_start, double 
     color_ = color;
     line_->setColor(color.r, color.g, color.b, opacity);
 
-    for (unsigned int i = 0; i < 100; ++i)
+    for (double step = stepsize; step < std::min(max_length, 100.0); step += stepsize)
     {
-        double x = x_start + i * dx;
+        double x = x_start + step;
         double y = c3 * x * x * x + c2 * x * x;
 
         line_->addPoint(Ogre::Vector3(x, y, 0));

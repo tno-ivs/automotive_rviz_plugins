@@ -31,8 +31,14 @@ void LineInfoDisplay::onInitialize() {
     color_invalid = new rviz::ColorProperty("Color - Invalid", QColor(0, 0, 0), "", this);
 
     width_property_ = new rviz::FloatProperty("Line Width", 0.3, "", this);
-    dx_property_ = new rviz::FloatProperty("dx", 0.1, "", this);
-    x_start_property_ = new rviz::FloatProperty("x_start", 0, "", this);
+    width_property_->setMin(0);
+
+    stepsize_property_ = new rviz::FloatProperty("Step size", 1, "", this);
+    stepsize_property_->setMin(0.8);
+
+    max_length_property_ = new rviz::FloatProperty("Max length", 100, "", this);
+    max_length_property_->setMin(0);
+    max_length_property_->setMax(200);
 
     MFDClass::onInitialize();
     initialized_ = true;
@@ -43,7 +49,6 @@ LineInfoDisplay::~LineInfoDisplay() {
         line.visual.destroy();
     }
 
-
     delete color_dashed;
     delete color_solid;
     delete color_undecided;
@@ -51,8 +56,8 @@ LineInfoDisplay::~LineInfoDisplay() {
     delete color_invalid;
 
     delete width_property_;
-    delete dx_property_;
-    delete x_start_property_;
+    delete stepsize_property_;
+    delete max_length_property_;
 }
 
 // Clear the visuals by deleting their objects.
@@ -101,11 +106,12 @@ void LineInfoDisplay::getLineFromSegment(Line& lineInstance, const Ogre::Quatern
     lineInstance.visual.setLineParameters(
                 segment.c2,
                 segment.c3,
-                x_start_property_->getFloat(),
-                dx_property_->getFloat(),
+                0,
+                std::min(segment.length, max_length_property_->getFloat()),
                 lineInstance.width_property_->getFloat(),
                 lineInstance.color_property_->getOgreColor(),
-                opacity);
+                opacity,
+                stepsize_property_->getFloat());
 }
 
 rviz::ColorProperty* LineInfoDisplay::colorFromLineType(int type) {
