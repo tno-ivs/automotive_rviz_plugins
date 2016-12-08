@@ -4,7 +4,7 @@
     <arg name="robot_name" default="et1"/>
 
     <node name="automotive_Lines_To_Mobileye_Lanes" pkg="rviz_plugins" type="automotiveLinesToMobileyeLanes.py" output="screen">
-        <remap from="lanes" to="/$(arg robot_name)/io/mobileye/lane_info2"/>
-        <remap from="lines" to="/$(arg robot_name)/io/mobileye/line_info"/>
+        <remap from="lanes" to="/$(arg robot_name)/mobileye/lane_info"/>
+        <remap from="lines" to="/$(arg robot_name)/mobileye/line_info"/>
     </node>
 </launch>

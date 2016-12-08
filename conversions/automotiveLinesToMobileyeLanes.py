@@ -35,7 +35,7 @@ def convert_to_lane(line):
     
     lane.quality = confidence_to_mobileye_quality(line.confidence)
     lane.c0 = -line.pose.position.y
-    rpy = rpy_from_quaternion([line.pose.orientation.x,line.pose.orientation.y,line.pose.orientation.z,line.pose.orientation.w])
+    rpy = rpy_from_quaternion([line.pose.orientation.x, line.pose.orientation.y, line.pose.orientation.z, line.pose.orientation.w])
     lane.c1 = -rpy[2] #yaw
     lane.c2 = -line.c2
     lane.c3 = -line.c3
@@ -47,8 +47,10 @@ def convert_to_lane(line):
 def convert_to_lanes(lines):
     lanes = LaneInfo()
     lanes.header = lines.header
-    lanes.left_lane = convert_to_lane(lines.segments[0])
-    lanes.right_lane = convert_to_lane(lines.segments[1])
+    nLines = len(lines.segments)
+    #Rightmost two lines
+    lanes.left_lane = convert_to_lane(lines.segments[1])
+    lanes.right_lane = convert_to_lane(lines.segments[0])
     lanes.yaw = 0
     lanes.pitch = 0
     lanes.c1 = -1*(lanes.left_lane.c1 + lanes.right_lane.c1)/2.0
