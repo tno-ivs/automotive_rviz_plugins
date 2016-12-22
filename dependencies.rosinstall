@@ -1,0 +1,3 @@
+- git:
+    local-name: automotive_msgs
+    uri: https://github.com/tno-ivs/automotive_msgs
