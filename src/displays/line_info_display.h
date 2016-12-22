@@ -21,7 +21,7 @@ class FloatProperty;
 class IntProperty;
 }
 
-namespace rviz_plugins
+namespace automotive_rviz_plugins
 {
 
 class Line {
@@ -71,6 +71,6 @@ private:
     void ensureCapacity(unsigned int size);
 };
 
-} // end namespace tno_rviz_plugins
+} // end namespace tno_automotive_rviz_plugins
 
 #endif // RADAR_OBJECT_DISPLAY_H

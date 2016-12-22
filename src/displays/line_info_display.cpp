@@ -17,7 +17,7 @@
 #include "line_visual.h"
 #include "line_info_display.h"
 
-namespace rviz_plugins {
+namespace automotive_rviz_plugins {
 
 LineInfoDisplay::LineInfoDisplay() {
     initialized_ = false;
@@ -138,4 +138,4 @@ void LineInfoDisplay::ensureCapacity(unsigned int size) {
 }
 // Export lib
 #include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS(rviz_plugins::LineInfoDisplay, rviz::Display )
+PLUGINLIB_EXPORT_CLASS(automotive_rviz_plugins::LineInfoDisplay, rviz::Display )

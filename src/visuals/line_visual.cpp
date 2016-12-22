@@ -1,6 +1,6 @@
 #include "line_visual.h"
 
-namespace rviz_plugins
+namespace automotive_rviz_plugins
 {
 
 LineVisual::LineVisual()
@@ -70,5 +70,5 @@ void LineVisual::setOpacity(double opacity) {
     line_->setColor(color_.r, color_.g, color_.b, opacity);
 }
 
-} // end namespace rviz_plugins
+} // end namespace automotive_rviz_plugins
 

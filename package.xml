@@ -1,5 +1,5 @@
 <package>
-  <name>rviz_plugins</name>
+  <name>automotive_rviz_plugins</name>
   <version>1.0.0</version>
   <description>
       Rviz plugins

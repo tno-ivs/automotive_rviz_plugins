@@ -49,7 +49,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Class: rviz_plugins/Lines
+    - Class: automotive_rviz_plugins/Lines
       Enabled: true
       Lane Color: 255; 0; 0
       Lane Width: 0.300000012

@@ -1,9 +1,9 @@
 ## BEGIN_TUTORIAL
-## This CMakeLists.txt file for tno_rviz_plugins builds both the TeleopPanel tutorial and the ImuDisplay tutorial.
+## This CMakeLists.txt file for tno_automotive_rviz_plugins builds both the TeleopPanel tutorial and the ImuDisplay tutorial.
 ##
 ## First start with some standard catkin stuff.
 cmake_minimum_required(VERSION 2.8.3)
-project(rviz_plugins)
+project(automotive_rviz_plugins)
 find_package(catkin REQUIRED COMPONENTS rviz automotive_sensor_msgs)
 catkin_package()
 

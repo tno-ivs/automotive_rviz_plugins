@@ -7,7 +7,7 @@
 #include <OGRE/OgreSceneNode.h>
 #include <OGRE/OgreSceneManager.h>
 
-namespace rviz_plugins
+namespace automotive_rviz_plugins
 {
 
 class LineVisual
@@ -42,6 +42,6 @@ private:
 
 };
 
-} // end namespace rviz_plugins
+} // end namespace automotive_rviz_plugins
 
 #endif
